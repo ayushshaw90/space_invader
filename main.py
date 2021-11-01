@@ -16,6 +16,11 @@ pygame.display.set_icon(icon)
 #score
 score=0
 
+font =pygame.font.Font('freesansbold.ttf', 32)
+def display_score():
+    text= font.render("score= " + str(score), True, (255,255,255))
+    screen.blit(text,(10,10))
+
 #player
 playerImg = pygame.image.load('player.png')
 playerX = 370
@@ -65,9 +70,27 @@ def isCollission(enemyX,enemyY,bulletX,bulletY):
     else:
         return False
 
-
 #game loop
-running = True
+running=True
+
+#game over
+font_over=pygame.font.Font('freesansbold.ttf', 70)
+text_over= font_over.render('Game over', True, (255,255,255))
+
+def game_over():
+    global running
+    while running:
+        screen.blit(background, (0,0))
+        display_score()
+        player(370,480)
+        screen.blit(text_over, (220,220))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running=False
+
+
+
 while running:
     time.sleep(0.002)
     #background
@@ -111,7 +134,7 @@ while running:
             score+=1
             enemyX[i] = random.randint(0,800)
             enemyY[i] = random.randint(50,150)
-            print(score)
+            
 
     #updating the change in coordinates of the player
     playerX=playerX+playerX_change
@@ -133,4 +156,12 @@ while running:
         
         enemy(enemyX[i],enemyY[i])
 
-    pygame.display.update()
+        #game over
+        for y in enemyY:
+            if y>=400:
+                game_over()
+                break
+
+    if running:
+        display_score()
+        pygame.display.update()
