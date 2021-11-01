@@ -38,7 +38,7 @@ enemyX=[]
 enemyY=[]
 enemyX_change=[]
 for i in range(no_of_enemies):
-    enemyX.append(random.randint(0,800))
+    enemyX.append(random.randint(0,736))
     enemyY.append(random.randint(50,150))
     enemyX_change.append(4)
 enemyY_change=40
@@ -156,7 +156,31 @@ while running:
         
         enemy(enemyX[i],enemyY[i])
 
+        #adding difficulty
+        if score>50 and score<=100 and no_of_enemies==3:
+            no_of_enemies=4
+            enemyX.append(random.randint(0,736))
+            enemyY.append(random.randint(50,150))
+            enemyX_change.append(4)
+        elif score>100 and score<=150 and no_of_enemies==4:
+            no_of_enemies=5
+            enemyX.append(random.randint(0,736))
+            enemyY.append(random.randint(50,150))
+            enemyX_change.append(4)
+        elif score>150 and score<=200 and no_of_enemies==5:
+            no_of_enemies=6
+            enemyX.append(random.randint(0,736))
+            enemyY.append(random.randint(50,150))
+            enemyX_change.append(4)
+        elif score>200:
+            no_of_enemies=7
+            enemyX.append(random.randint(0,736))
+            enemyY.append(random.randint(50,150))
+            enemyX_change.append(4)
+
+            
         #game over
+        # if an enemy reaches 400 in y axis, game over
         for y in enemyY:
             if y>=400:
                 game_over()
